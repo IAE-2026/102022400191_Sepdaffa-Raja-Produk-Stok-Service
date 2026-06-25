@@ -29,9 +29,15 @@ Route::middleware('sso')->prefix('v1')->group(function () {
         return response()->json([
             'status' => 'success',
             'message' => 'SSO authentication successful',
-            'user' => auth()->user(),
-            'roles' => auth()->user()->roles,
-            'token_payload' => $request->attributes->get('sso_payload')
+            'data' => [
+                'user' => auth()->user(),
+                'roles' => auth()->user()->roles,
+                'token_payload' => $request->attributes->get('sso_payload')
+            ],
+            'meta' => [
+                'service_name' => 'Product-Service',
+                'api_version' => 'v1'
+            ]
         ]);
     });
 

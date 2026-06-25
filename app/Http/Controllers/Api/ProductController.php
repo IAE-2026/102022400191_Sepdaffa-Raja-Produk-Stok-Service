@@ -17,9 +17,14 @@ class ProductController extends Controller
  *     tags={"Products"},
  *     summary="Get list products",
  *     description="Returns list of products",
+ *     security={{"ApiKeyAuth": {}}, {"BearerAuth": {}}},
  *     @OA\Response(
  *         response=200,
  *         description="Successful operation"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
  *     )
  * )
  */
@@ -37,6 +42,35 @@ class ProductController extends Controller
         ]);
     }
 
+/**
+ * @OA\Get(
+ *     path="/api/v1/products/{id}",
+ *     operationId="getProductById",
+ *     tags={"Products"},
+ *     summary="Get product by ID",
+ *     description="Returns a single product details",
+ *     security={{"ApiKeyAuth": {}}, {"BearerAuth": {}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="Product ID",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Product not found"
+ *     )
+ * )
+ */
     // GET PRODUCT BY ID
     public function show($id)
     {
@@ -90,6 +124,40 @@ class ProductController extends Controller
     ]);
 }
 
+/**
+ * @OA\Post(
+ *     path="/api/v1/products",
+ *     operationId="storeProduct",
+ *     tags={"Products"},
+ *     summary="Create a new product",
+ *     description="Creates a new product in the store",
+ *     security={{"ApiKeyAuth": {}}, {"BearerAuth": {}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Product details",
+ *         @OA\JsonContent(
+ *             required={"name","price","stock","sku"},
+ *             @OA\Property(property="name", type="string", example="Produk A"),
+ *             @OA\Property(property="price", type="number", format="float", example=15000.00),
+ *             @OA\Property(property="stock", type="integer", example=10),
+ *             @OA\Property(property="sku", type="string", example="PRD-001"),
+ *             @OA\Property(property="description", type="string", example="Deskripsi Produk A")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Product created successfully"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Unprocessable Entity (Validation failed)"
+ *     )
+ * )
+ */
     // CREATE PRODUCT
     public function store(Request $request)
     {
@@ -113,6 +181,31 @@ class ProductController extends Controller
         ], 201);
     }
 
+/**
+ * @OA\Get(
+ *     path="/api/v1/products/search",
+ *     operationId="searchProducts",
+ *     tags={"Products"},
+ *     summary="Search products by name",
+ *     description="Returns a list of products matching the name parameter",
+ *     security={{"ApiKeyAuth": {}}, {"BearerAuth": {}}},
+ *     @OA\Parameter(
+ *         name="name",
+ *         in="query",
+ *         required=true,
+ *         description="Product name search term",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Search successful"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     )
+ * )
+ */
     // SEARCH PRODUCT
     public function search(Request $request)
     {
@@ -133,6 +226,35 @@ class ProductController extends Controller
         ]);
     }
 
+/**
+ * @OA\Get(
+ *     path="/api/v1/products/{id}/stock",
+ *     operationId="getProductStock",
+ *     tags={"Products"},
+ *     summary="Get product stock",
+ *     description="Returns stock information for a specific product ID",
+ *     security={{"ApiKeyAuth": {}}, {"BearerAuth": {}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="Product ID",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Stock retrieved successfully"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Product not found"
+ *     )
+ * )
+ */
     public function stock($id)
 {
     $product = Product::find($id);
@@ -140,16 +262,62 @@ class ProductController extends Controller
     if (!$product) {
         return response()->json([
             'status' => 'error',
-            'message' => 'Product not found'
+            'message' => 'Product not found',
+            'errors' => null
         ], 404);
     }
 
     return response()->json([
         'status' => 'success',
-        'stock' => $product->stock
+        'message' => 'Stock retrieved successfully',
+        'data' => [
+            'id' => $product->id,
+            'stock' => $product->stock
+        ],
+        'meta' => [
+            'service_name' => 'Product-Service',
+            'api_version' => 'v1'
+        ]
     ]);
 }
 
+/**
+ * @OA\Put(
+ *     path="/api/v1/products/{id}/update",
+ *     operationId="updateProductStock",
+ *     tags={"Products"},
+ *     summary="Update product stock",
+ *     description="Updates the stock quantity of a specific product",
+ *     security={{"ApiKeyAuth": {}}, {"BearerAuth": {}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="Product ID",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Stock value",
+ *         @OA\JsonContent(
+ *             required={"stock"},
+ *             @OA\Property(property="stock", type="integer", example=25)
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Stock updated successfully"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Product not found"
+ *     )
+ * )
+ */
     // UPDATE STOCK
    public function updateStock(Request $request, $id)
 {
@@ -158,7 +326,8 @@ class ProductController extends Controller
     if (!$product) {
         return response()->json([
             'status' => 'error',
-            'message' => 'Product not found'
+            'message' => 'Product not found',
+            'errors' => null
         ], 404);
     }
 
@@ -195,11 +364,17 @@ class ProductController extends Controller
     return response()->json([
         'status' => 'success',
         'message' => 'Stock updated successfully',
-        'data' => $product,
-        'audit' => [
-            'activity_name' => 'StockUpdated',
-            'receipt_number' => $receiptNumber,
-            'status' => $receiptNumber ? 'SUCCESS' : 'FAILED'
+        'data' => [
+            'product' => $product,
+            'audit' => [
+                'activity_name' => 'StockUpdated',
+                'receipt_number' => $receiptNumber,
+                'status' => $receiptNumber ? 'SUCCESS' : 'FAILED'
+            ]
+        ],
+        'meta' => [
+            'service_name' => 'Product-Service',
+            'api_version' => 'v1'
         ]
     ]);
 }
