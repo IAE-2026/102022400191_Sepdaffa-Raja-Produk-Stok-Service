@@ -20,11 +20,25 @@ class ProductController extends Controller
  *     security={{"ApiKeyAuth": {}}, {"BearerAuth": {}}},
  *     @OA\Response(
  *         response=200,
- *         description="Successful operation"
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="message", type="string", example="Products retrieved successfully"),
+ *             @OA\Property(property="data", type="array", @OA\Items(type="object")),
+ *             @OA\Property(property="meta", type="object",
+ *                 @OA\Property(property="service_name", type="string", example="Product-Service"),
+ *                 @OA\Property(property="api_version", type="string", example="v1")
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=401,
- *         description="Unauthorized"
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     )
  * )
  */
@@ -59,15 +73,34 @@ class ProductController extends Controller
  *     ),
  *     @OA\Response(
  *         response=200,
- *         description="Successful operation"
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="message", type="string", example="Product retrieved successfully"),
+ *             @OA\Property(property="data", type="object"),
+ *             @OA\Property(property="meta", type="object",
+ *                 @OA\Property(property="service_name", type="string", example="Product-Service"),
+ *                 @OA\Property(property="api_version", type="string", example="v1")
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=401,
- *         description="Unauthorized"
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     ),
  *     @OA\Response(
  *         response=404,
- *         description="Product not found"
+ *         description="Product not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Product not found"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     )
  * )
  */
@@ -146,15 +179,34 @@ class ProductController extends Controller
  *     ),
  *     @OA\Response(
  *         response=201,
- *         description="Product created successfully"
+ *         description="Product created successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="message", type="string", example="Product created successfully"),
+ *             @OA\Property(property="data", type="object"),
+ *             @OA\Property(property="meta", type="object",
+ *                 @OA\Property(property="service_name", type="string", example="Product-Service"),
+ *                 @OA\Property(property="api_version", type="string", example="v1")
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=401,
- *         description="Unauthorized"
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     ),
  *     @OA\Response(
  *         response=422,
- *         description="Unprocessable Entity (Validation failed)"
+ *         description="Unprocessable Entity (Validation failed)",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="The sku field is required."),
+ *             @OA\Property(property="errors", type="object")
+ *         )
  *     )
  * )
  */
@@ -198,11 +250,25 @@ class ProductController extends Controller
  *     ),
  *     @OA\Response(
  *         response=200,
- *         description="Search successful"
+ *         description="Search successful",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="message", type="string", example="Search successful"),
+ *             @OA\Property(property="data", type="array", @OA\Items(type="object")),
+ *             @OA\Property(property="meta", type="object",
+ *                 @OA\Property(property="service_name", type="string", example="Product-Service"),
+ *                 @OA\Property(property="api_version", type="string", example="v1")
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=401,
- *         description="Unauthorized"
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     )
  * )
  */
@@ -243,15 +309,37 @@ class ProductController extends Controller
  *     ),
  *     @OA\Response(
  *         response=200,
- *         description="Stock retrieved successfully"
+ *         description="Stock retrieved successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="message", type="string", example="Stock retrieved successfully"),
+ *             @OA\Property(property="data", type="object",
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="stock", type="integer", example=15)
+ *             ),
+ *             @OA\Property(property="meta", type="object",
+ *                 @OA\Property(property="service_name", type="string", example="Product-Service"),
+ *                 @OA\Property(property="api_version", type="string", example="v1")
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=401,
- *         description="Unauthorized"
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     ),
  *     @OA\Response(
  *         response=404,
- *         description="Product not found"
+ *         description="Product not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Product not found"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     )
  * )
  */
@@ -306,15 +394,41 @@ class ProductController extends Controller
  *     ),
  *     @OA\Response(
  *         response=200,
- *         description="Stock updated successfully"
+ *         description="Stock updated successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="message", type="string", example="Stock updated successfully"),
+ *             @OA\Property(property="data", type="object",
+ *                 @OA\Property(property="product", type="object"),
+ *                 @OA\Property(property="audit", type="object",
+ *                     @OA\Property(property="activity_name", type="string", example="StockUpdated"),
+ *                     @OA\Property(property="receipt_number", type="string", example="REC123456"),
+ *                     @OA\Property(property="status", type="string", example="SUCCESS")
+ *                 )
+ *             ),
+ *             @OA\Property(property="meta", type="object",
+ *                 @OA\Property(property="service_name", type="string", example="Product-Service"),
+ *                 @OA\Property(property="api_version", type="string", example="v1")
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=401,
- *         description="Unauthorized"
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     ),
  *     @OA\Response(
  *         response=404,
- *         description="Product not found"
+ *         description="Product not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Product not found"),
+ *             @OA\Property(property="errors", type="object", nullable=true, example=null)
+ *         )
  *     )
  * )
  */

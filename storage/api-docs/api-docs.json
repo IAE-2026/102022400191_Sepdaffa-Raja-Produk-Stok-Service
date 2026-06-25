@@ -16,10 +16,68 @@
                 "operationId": "getProducts",
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Products retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "service_name": {
+                                                    "type": "string",
+                                                    "example": "Product-Service"
+                                                },
+                                                "api_version": {
+                                                    "type": "string",
+                                                    "example": "v1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -80,13 +138,88 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Product created successfully"
+                        "description": "Product created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product created successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "service_name": {
+                                                    "type": "string",
+                                                    "example": "Product-Service"
+                                                },
+                                                "api_version": {
+                                                    "type": "string",
+                                                    "example": "v1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Unprocessable Entity (Validation failed)"
+                        "description": "Unprocessable Entity (Validation failed)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The sku field is required."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -120,13 +253,90 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "service_name": {
+                                                    "type": "string",
+                                                    "example": "Product-Service"
+                                                },
+                                                "api_version": {
+                                                    "type": "string",
+                                                    "example": "v1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Product not found"
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -160,10 +370,68 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Search successful"
+                        "description": "Search successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Search successful"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "service_name": {
+                                                    "type": "string",
+                                                    "example": "Product-Service"
+                                                },
+                                                "api_version": {
+                                                    "type": "string",
+                                                    "example": "v1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -197,13 +465,100 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Stock retrieved successfully"
+                        "description": "Stock retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Stock retrieved successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "stock": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "service_name": {
+                                                    "type": "string",
+                                                    "example": "Product-Service"
+                                                },
+                                                "api_version": {
+                                                    "type": "string",
+                                                    "example": "v1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Product not found"
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -257,13 +612,112 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Stock updated successfully"
+                        "description": "Stock updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Stock updated successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "product": {
+                                                    "type": "object"
+                                                },
+                                                "audit": {
+                                                    "properties": {
+                                                        "activity_name": {
+                                                            "type": "string",
+                                                            "example": "StockUpdated"
+                                                        },
+                                                        "receipt_number": {
+                                                            "type": "string",
+                                                            "example": "REC123456"
+                                                        },
+                                                        "status": {
+                                                            "type": "string",
+                                                            "example": "SUCCESS"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "service_name": {
+                                                    "type": "string",
+                                                    "example": "Product-Service"
+                                                },
+                                                "api_version": {
+                                                    "type": "string",
+                                                    "example": "v1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Product not found"
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
